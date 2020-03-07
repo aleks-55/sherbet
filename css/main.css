@@ -1,0 +1,99 @@
+h1, h2, h3, body {
+    /* margin-top: 20px; */
+    font-family: sans-serif;
+}
+
+input {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.main {
+    max-width: 935px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#mainForm.visible_off {
+    display: none;
+}
+
+button {
+    font-size: 18px;
+}
+
+#refresh_btn {
+    /* margin-left: 100px; */
+    /* display: none; */
+    visibility: hidden;
+}
+#refresh_btn.visible_on {
+    /* display: inline-block; */
+    visibility: visible;
+}
+
+.year {
+    display: none;
+    /* display: flow-root; */
+}
+.year.visible {
+    display: flow-root;
+}
+
+.wrapper {
+    float: left;
+    margin: 9px;
+    position: relative;
+}
+
+.wrapper .video {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAACcklEQVRoQ+2Zu4oVQRCGv9/7Zpr6ACbmG5v6CCabbmDsHQzXhUXfQBB1XUQNBHMTFQwMDIwMvLAoyMKiiHcdKegB2T2ePTPdPVNzTnc6M9319V9VU10tZmxoxngpwNOueFG4KDxlO1BcesoE3YZTFC4KT9kORLl0VVVHgBPAS+CBpE/e9ycW+CFwLEB+AC4AVyVVXsFjgTeBg1vgngMnJT32CB0L/AWY+w/YHeCUpDeewGOBvwIHxgB9Ay4DS5Jsc3ofuYFrwHfAOeBG3/EdC2wK7m8g27MQ308bfJP01a6BzXjL4LdCfL9PSjPBZLHA34F9E6wz6hWL6WVgRZJ5SiejT+AacB04LWmtC+JY4B/A3kSGWlzb/9viPNvwBFzH9/WguFVuyUcs8E9gT3Kr4DNwyf7hkixPJBtegWvA1yGb301FHAv8C9idypgx81hdvijpRexaQwE2zj92EgPOS9poCx4L/BvY1Xbxlt/ZmXtB0v023w8RuM7mhyR9bAodC5wrS+/EYaCH25zAhghsLn1c0pOddmXU8yEBu0haXbn0zPyWXoXC414b983h0rkKDystl4Ar3krL1MDWHLgGnJXk8vCQEtji1I6H1ubNNmKzdIpK6204Dt7ORvnPxH0CD7LF00Zhi9ObwBlJg2viWTHQxEs6aeOMC40mxm6bp6qqSYGtUWeZd7WLOO0T2K5iVqxd02Urti9ga7ta+9XUdTNiXXrUVUvv1yk5FbYkNB8WcHNhlhP4KHAReBRu/l1ciWYDdhOYDQyJiuEG67h5tQC7kSKTIUXhTBvrZtqisBspMhlSFM60sW6mLQq7kSKTIX8BesrnPQUzdDIAAAAASUVORK5CYII=');
+    background-color: #0404045c;
+}
+
+.wrapper .sidecar {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAB3klEQVRoQ+2ZLU8DQRCG31HkkgpMNSSYOirr+FBIZGUlkp8Av+TA1QGeSyCVNcXTBN8a3KGWTOklF+jRvdv7yG3fc5fudPaZd2ZusivYsUd2jBcE9l1xKkyFPYsAU9ozQf/gUGEq7FkEmNKeCVpe0zLGHAB4BnAE1DKTGwAvInLuIkrhlDbGvK9hXfzntl0ul2/dbref23Bt4AKsEa/9ieP4KwiCC1W7iPO2Al8BuCOwRQTaqDDG4zFGo5HizQDcisijBetqSduBE84zEbGqaV+An0Tk0kZlX4BfReSUwBsiQIVt0kLXGGOaGjzSXTrZLlM6SzimNFM6IwKsYdvUcFwXxzGbFgB2aXbpFp94sIZZw/98CThp2X4mOXjYRspxHQePnwBy8ODgUcLgoceiJ44lmdt8MplgPp8n59L1nXiop8ViMet0Or3UrvdyE+QwmE6niKIIw+EQvV7abQ01nNqnHo8e6nsYhmGO/RdaOhgMfsPW07Q27bapb3MtXToDWO96jgtJ52Z0LyKry6ZtT+HRMgNYrzsetjkt+fdPAH0R+bD531KB1aExRmv6GsC+zQYc1yjkjS2s+iod2BGgcnMCVx7ihh1Q4YYFqNw9Fa48xA07oMINC1C5+51T+Bt4TWNMhKWfVgAAAABJRU5ErkJggg==');
+    background-color: #0404045c;
+}
+
+.link_to_instagram {
+    width: 58px;
+    height: 57px;
+    right: 0;
+    top: 0;
+    position: absolute;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAwCAYAAAC4wJK5AAACo0lEQVRoQ+2ZO4sUQRRGzweKgguKP8AHiIGRoZioGGjkaqQYiBsbysKCr10FRdlUI2FFMDHwlQgiuJn/QEHFxFSDRQVB5EotM0PvTHdPvXq7lSmYaOreW6eq7u2vqsQ6NjM7BByOCLkLcL+y9lQRDqNNzOwaMB/toNzwzQQidEYnK1E9Y5PtFLqb+F+207gSux84GTg7S+taneoGZ2bngaVAANd9vhMQCQDdgEgEaB8iAOBZTa60t50CAGaAnTVypRzCzDYCe4B9wF5gU0TCDZv8Aj4A74GDwH0PnzOSHowpzaMQZnYauAds9wjSZJdVABfAG8LMtgIPgRNNjszT9wAgFOIRcNYzSJPd1gB4Q5jZNOAqQNttBCAE4i1woGWCUgAvCDPbDHwHNrQI8QeYkuQq2Egbm9hmdhR4XQHwradnfkYAOjHntqlvOyJpuQKiTjguy8zmgFsVkRYlzfqOot8v4ENWdD0n6XZoLNffQbiDuzvAl7UFSUEH+0gAFzs4Vn/AWSESALoBkQjQPkQAwPOaZE/aTgvA1dicCABwatTd4mXLv2JOREOEAPTUaNYikgwRCtD78v6TEMNqtFsQvZmtu6EoU6ONQVwHrmRO7Co12k2IkhWpU6PdhSiA0D9SVgi5bkP4CLfcOq1YYm8Al2NzwmfwBXXb2EpMICYrsXYGkgSgywe3pcpa1MmuanXMbBG4WPH/JUk3Q1a2mNingCcVxiln7GGXU4BTslU3i9OSXsRC7AY+xxhnttkh6UuMz9VHFjP7AWyJcZDJZkXStlhffQh3o3En1kkGu1lJLl+i2uC5y8xeAsejvKQZvZJ0LMVFEaKNW3GXyOckrWSBKEiDM8Ddht8nvgIXJD1OGfygxJY5afCl6CPwDvgk6XcOAOfjLyLPorQwhK4OAAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-color: #0404045c;
+    background-position-x: 4px;
+    background-position-y: 5px;
+}
+
+#waitingBox {
+    background-image: url(../image/waiting-blue.gif);
+    background-size: 64px 64px;
+    width: 64px;
+    height: 64px;
+    background-repeat: no-repeat;
+    position: fixed;
+    z-index: 10; 
+    left: 3%; 
+    bottom: 20px;
+    /* width: 100%;
+    background-position-x: center; */
+    display: none;
+}
+#waitingBox.visible_on {
+    display: block;
+}
+
+.img_preview {
+    width: 293px;
+    cursor: pointer;
+}

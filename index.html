@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="image/sherbet-favicon.png" type="image/x-icon">
+    <title>Sherbet</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/observer.css">
+</head>
+
+<body>
+
+    <div class="main">
+        <h1>Скрипт Sherbet</h1>
+        <i>Ищет публикации Instagram-пользователей за указанный месяц за все годы, например за все феврали.</i>
+        <form id='mainForm'>
+            <p>Найти в Instagram публикации пользователя:</p>
+            <p>
+                <input id="inputUser" type="search" autofocus size="51" placeholder="вставьте username или ссылку на страницу пользователя"></input>
+            </p>
+            <p>За месяц:</p>
+            <p>
+                <select id="month_selector">
+                    <option value="1">январь</option>
+                    <option value="2">февраль</option>
+                    <option value="3">март</option>
+                    <option value="4">апрель</option>
+                    <option value="5">май</option>
+                    <option value="6">июнь</option>
+                    <option value="7">июль</option>
+                    <option value="8">август</option>
+                    <option value="9">сентябрь</option>
+                    <option value="10">октябрь</option>
+                    <option value="11">ноябрь</option>
+                    <option value="12">декабрь</option>
+                </select>
+            </p>
+            <p>
+                <input type="submit" value="Найти"></input>
+            </p>
+        </form>
+        <p>
+            <button id="refresh_btn">Новый поиск</button>
+        </p>
+        <div id="description"></div>
+        <div id="waitingBox"></div>
+        <div id="mainBox"></div>
+
+    </div>
+
+    <div class="observer hidden">
+        <div>
+            <div class="fictitious"></div>
+            <div class="previous" title="Предыдущий пост"></div>
+            <div class="sidecar_previous" title="Предыдущее медиа"></div>
+        </div>
+        <img class="media">
+        <video class="media" controls loop></video>
+        <div>
+            <div class='fictitious'></div>
+            <div class="next" title="Следующий пост"></div>    
+            <div class="sidecar_next" title="Следующее медиа"></div>
+        </div>
+        <div class="close"></div>
+        <div class="sidecar_title"></div>
+        <div class="observer_date"></div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/observer.js"></script>
+</body>
+
+</html>
