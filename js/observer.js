@@ -117,21 +117,21 @@ function init_observer() {
     document.body.addEventListener('keydown', function (e) {
         if (document.querySelector('.observer').classList.value.match('hidden')) { return; }
 
-        switch (e.keyCode) {
+        switch (e.code) {
             // если нажали Esc
-            case 27: { close(); return; }
+            case 'Escape': { close(); return; }
             // left
-            case 37: { previous(); e.preventDefault(); return; }
+            case 'ArrowLeft': { previous(); e.preventDefault(); return; }
             // up
-            case 38: { sidecar_next(); e.preventDefault(); return; }
+            case 'ArrowUp': { sidecar_next(); e.preventDefault(); return; }
             // right
-            case 39: { next(); e.preventDefault(); return; }
+            case 'ArrowRight': { next(); e.preventDefault(); return; }
             // down
-            case 40: { sidecar_previous(); e.preventDefault(); return; }
+            case 'ArrowDown': { sidecar_previous(); e.preventDefault(); return; }
             // пробел
-            case 32: { play_pause_video(); e.preventDefault(); return; }
+            case 'Space': { play_pause_video(); e.preventDefault(); return; }
             // F
-            case 70: { fullscreen_video(); return; }
+            case 'KeyF': { fullscreen_video(); return; }
         }
 
         // console.log(e.keyCode)
