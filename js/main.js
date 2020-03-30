@@ -62,6 +62,20 @@ function init() {
     };
 
     years = initYears();
+
+    // нажатие на кнопку НАВЕРХ
+    document.getElementById('back-top').onclick = function() {
+        window.scrollTo(0, 0);
+    }
+
+    // отображение кнопки НАВЕРХ
+    window.addEventListener('scroll', function() {
+        if (pageYOffset > 200) {
+            document.getElementById('back-top').classList.add('visible');
+        } else {
+            document.getElementById('back-top').classList.remove('visible');
+        }
+    });
 }
 
 function startSherbet(urlUserPage) {
