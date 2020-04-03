@@ -102,6 +102,13 @@ button {
     cursor: pointer;
 }
 
+#description {
+    display: none;
+}
+#description.visible_on {
+    display: block;
+}
+
 /* Кнопка наверх */
 #back-top{	
     background-image: url(../image/button-top.png);

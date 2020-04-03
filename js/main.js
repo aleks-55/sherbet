@@ -18,7 +18,7 @@ function init() {
     // нажатие на кнопку "Новый поиск"
     document.getElementById("refresh_btn").onclick = function() {
         document.getElementById("mainBox").innerHTML = '';
-        document.getElementById("description").innerHTML = '';
+        document.getElementById("description").classList.remove('visible_on');
         // but_1.disabled = false;
         // показываем форму
         document.getElementById("mainForm").classList.remove('visible_off');
@@ -130,9 +130,11 @@ function startSherbet(urlUserPage) {
         // поставим title на нашу страницу-скрипт
         document.title = doc.title.split(' • ')[0] + ' • ' + document.title;
 
-        document.getElementById("description").innerHTML = "На странице пользователя <strong>" + username + "</strong> " + 
-                                getCountPubAll(xhr.responseText) +
-                                " публикаций.<br />Ищем все " + getMonthRusPrilog(mymonth) + " публикации.";
+        document.getElementById('_username').innerHTML = "qwerty"//username;
+        document.getElementById('countPubAll').innerHTML = getCountPubAll(xhr.responseText);
+        document.getElementById('mountRusPrilog').innerHTML = getMonthRusPrilog(mymonth);
+        document.getElementById("_countPub").innerHTML = pubDB.countPub;
+        document.getElementById('description').classList.add('visible_on');
 
         // step2(url_js);
         // step 3
@@ -198,6 +200,8 @@ function startSherbet(urlUserPage) {
                 parsePub(publications[i]["node"]);
             }
     
+            // обновляем в описании число найденных публикаций
+            document.getElementById("_countPub").innerHTML = pubDB.countPub;
             // отображать года, в к-х загрузильсь нужные посты
             refresh_visible_years();
 
@@ -209,12 +213,6 @@ function startSherbet(urlUserPage) {
             } else {
                 document.getElementById("waitingBox").classList.remove('visible_on');
                 document.getElementById("refresh_btn").classList.add('visible_on');
-
-                if (pubDB.countPub == 0) {
-                    document.getElementById("description").innerHTML += "<br />Ничего не найдено."
-                } else {
-                    document.getElementById("description").innerHTML += "<br />Найдено " + pubDB.countPub + " публикаций."
-                }
             }
         }
 
