@@ -120,7 +120,7 @@ function startSherbet(urlUserPage) {
         document.title = doc.title.split(' • ')[0] + ' • ' + document.title;
 
         // готовим блок description
-        document.getElementById('_username').innerHTML = "qwerty"//username;
+        document.getElementById('_username').innerHTML = username;
         document.getElementById('countPubAll').innerHTML = getCountPubAll(xhr.responseText);
         document.getElementById('mountRusPrilog').innerHTML = getMonthRusPrilog(mymonth);
         document.getElementById("_countPub").innerHTML = pubDB.countPub;
@@ -148,8 +148,8 @@ function request_big_count_post(chId, after, countPost, query_hash) {
     xhrJson.onload = function() {
         if (xhrJson.status != 200) {
             // обработать ошибку
-            console.log("Ошибка. Ответ сервера: " + xhrJson.status);
-            alert("Ошибка. Ответ сервера: " + xhrJson.status);
+            console.log("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Serbet step 3');
+            alert("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Serbet step 3');
             return;
         }
 
@@ -168,7 +168,7 @@ function request_big_count_post(chId, after, countPost, query_hash) {
         if (has_next_page) {
             after = jsonResponse["data"]["user"]["edge_owner_to_timeline_media"]["page_info"]["end_cursor"];
 
-            request_big_count_post();
+            request_big_count_post(chId, after, countPost, query_hash);
         } else {
             document.getElementById("waitingBox").classList.remove('visible_on');
             document.getElementById("refresh_btn").classList.add('visible_on');
