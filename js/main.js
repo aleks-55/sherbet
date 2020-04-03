@@ -126,58 +126,58 @@ function startSherbet(urlUserPage) {
         document.getElementById("_countPub").innerHTML = pubDB.countPub;
         document.getElementById('description').classList.add('visible_on');
 
-        request_big_count_post();
+        request_big_count_post(chId, after, countPost, query_hash);
     }
 
     xhr.onerror = function(){
         console.log('Ошибка соединения.\nВозникла при выполнении Serbet step 1\n(при загрузке страницы пользователя)');
         alert('Ошибка соединения.\nВозникла при выполнении Serbet step 1\n(при загрузке страницы пользователя)');
     }
+}
 
-    // делаем запросы постов
-    function request_big_count_post() {
-        let jsonVariables = '{"id":"' + chId + '","first":' + countPost + ',"after":"' + after + '"}';
-        let urlRequest = 'https://www.instagram.com/graphql/query/?query_hash=' + query_hash +
-        '&variables=' + encodeURIComponent(jsonVariables);
+// делаем запросы постов
+function request_big_count_post(chId, after, countPost, query_hash) {
+    let jsonVariables = '{"id":"' + chId + '","first":' + countPost + ',"after":"' + after + '"}';
+    let urlRequest = 'https://www.instagram.com/graphql/query/?query_hash=' + query_hash +
+    '&variables=' + encodeURIComponent(jsonVariables);
 
-        let xhrJson = new XMLHttpRequest();
-        xhrJson.open('GET', urlRequest);
-        xhrJson.send();
+    let xhrJson = new XMLHttpRequest();
+    xhrJson.open('GET', urlRequest);
+    xhrJson.send();
 
-        xhrJson.onload = function() {
-            if (xhrJson.status != 200) {
-                // обработать ошибку
-                console.log("Ошибка. Ответ сервера: " + xhrJson.status);
-                alert("Ошибка. Ответ сервера: " + xhrJson.status);
-                return;
-            }
-    
-            let jsonResponse = JSON.parse(xhrJson.response);
-            let publications = jsonResponse["data"]["user"]["edge_owner_to_timeline_media"]["edges"];
-            for(let i = 0; i < publications.length; i++) {
-                parsePub(publications[i]["node"]);
-            }
-    
-            // обновляем в описании число найденных публикаций
-            document.getElementById("_countPub").innerHTML = pubDB.countPub;
-            // отображать года, в к-х загрузильсь нужные посты
-            refresh_visible_years();
-
-            let has_next_page = jsonResponse["data"]["user"]["edge_owner_to_timeline_media"]["page_info"]["has_next_page"];
-            if (has_next_page) {
-                after = jsonResponse["data"]["user"]["edge_owner_to_timeline_media"]["page_info"]["end_cursor"];
-
-                request_big_count_post();
-            } else {
-                document.getElementById("waitingBox").classList.remove('visible_on');
-                document.getElementById("refresh_btn").classList.add('visible_on');
-            }
+    xhrJson.onload = function() {
+        if (xhrJson.status != 200) {
+            // обработать ошибку
+            console.log("Ошибка. Ответ сервера: " + xhrJson.status);
+            alert("Ошибка. Ответ сервера: " + xhrJson.status);
+            return;
         }
 
-        xhrJson.onerror = function(){
-            console.log('Ошибка соединения.\nВозникла при выполнении Serbet step 3');
-            alert('Ошибка соединения.\nВозникла при выполнении Serbet step 3');
+        let jsonResponse = JSON.parse(xhrJson.response);
+        let publications = jsonResponse["data"]["user"]["edge_owner_to_timeline_media"]["edges"];
+        for(let i = 0; i < publications.length; i++) {
+            parsePub(publications[i]["node"]);
         }
+
+        // обновляем в описании число найденных публикаций
+        document.getElementById("_countPub").innerHTML = pubDB.countPub;
+        // отображать года, в к-х загрузильсь нужные посты
+        refresh_visible_years();
+
+        let has_next_page = jsonResponse["data"]["user"]["edge_owner_to_timeline_media"]["page_info"]["has_next_page"];
+        if (has_next_page) {
+            after = jsonResponse["data"]["user"]["edge_owner_to_timeline_media"]["page_info"]["end_cursor"];
+
+            request_big_count_post();
+        } else {
+            document.getElementById("waitingBox").classList.remove('visible_on');
+            document.getElementById("refresh_btn").classList.add('visible_on');
+        }
+    }
+
+    xhrJson.onerror = function(){
+        console.log('Ошибка соединения.\nВозникла при выполнении Serbet step 3');
+        alert('Ошибка соединения.\nВозникла при выполнении Serbet step 3');
     }
 }
 
