@@ -128,6 +128,8 @@ function init_observer() {
             case 'ArrowRight': { next(); e.preventDefault(); return; }
             // down
             case 'ArrowDown': { sidecar_previous(); e.preventDefault(); return; }
+            // 0 на numpade
+            case 'Numpad0':
             // пробел
             case 'Space': { play_pause_video(); e.preventDefault(); return; }
             // F
@@ -161,11 +163,7 @@ function close() {
     let observer = document.querySelector('.observer');
     observer.classList.add('hidden')
 
-    let video = document.querySelector('video.media');
-    if ( ! video.paused) {
-        video.pause();
-    }
-    if ( video.classList.value.match('hidden') ) { return }
+    hide_video()
 }
 
 function click_to_free_space(e) {
@@ -197,13 +195,12 @@ function fullscreen_video() {
         video.requestFullscreen();
     }
 }
+
 function hide_video() {
     let video = document.querySelector('video.media');
     video.classList.add('hidden');
 
-    if (! video.paused) {
-        video.pause();
-    }
+    video.src = '';
 }
 
 init_observer()
