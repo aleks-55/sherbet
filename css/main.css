@@ -66,6 +66,10 @@ button {
     background-color: #0404045c;
 }
 
+.wrapper .video, .wrapper .sidecar {
+    border-radius: 0 10px 15px 10px;
+}
+
 .link_to_instagram {
     width: 58px;
     height: 57px;
@@ -77,6 +81,7 @@ button {
     background-color: #0404045c;
     background-position-x: 4px;
     background-position-y: 5px;
+    border-radius: 10px 0 10px 15px;
 }
 
 #waitingBox {
