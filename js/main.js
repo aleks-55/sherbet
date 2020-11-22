@@ -16,6 +16,9 @@ let pubDB = { 'countPub': 0 };
 function init() {
     document.getElementById("month_selector").value = (new Date).getMonth() + 1;
 
+    // При запуске подставить значение hash в строку inputUser
+    document.getElementById("inputUser").value = (! location.hash) ? '' : location.hash.split('#')[1];
+
     // нажатие на кнопку "Новый поиск"
     document.getElementById("refresh_btn").onclick = function() {
         document.getElementById("mainBox").innerHTML = '';
@@ -27,6 +30,8 @@ function init() {
         years = initYears();
         pubDB = { 'countPub': 0 };
         username = '';
+        location.hash = '';
+        document.title = "Sherbet"
     }
 
     // "отправка" формы
@@ -51,6 +56,8 @@ function init() {
         mymonth = document.getElementById("month_selector").value;
         // скрываем всю форму
         this.classList.add('visible_off');
+
+        location.hash = username;
         
         // показываем крутящуюся шестеренку
         document.getElementById("waitingBox").classList.add('visible_on');
@@ -130,8 +137,8 @@ function startSherbet(urlUserPage) {
     }
 
     xhr.onerror = function(){
-        console.log('Ошибка соединения.\nВозникла при выполнении Serbet step 1\n(при загрузке страницы пользователя)');
-        alert('Ошибка соединения.\nВозникла при выполнении Serbet step 1\n(при загрузке страницы пользователя)');
+        console.log('Ошибка соединения.\nВозникла при выполнении Sherbet step 1\n(при загрузке страницы пользователя)');
+        alert('Ошибка соединения.\nВозникла при выполнении Sherbet step 1\n(при загрузке страницы пользователя)');
     }
 }
 
@@ -148,8 +155,8 @@ function request_big_count_post(chId, after, countPost, query_hash) {
     xhrJson.onload = function() {
         if (xhrJson.status != 200) {
             // обработать ошибку
-            console.log("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Serbet step 3');
-            alert("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Serbet step 3');
+            console.log("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Sherbet step 3');
+            alert("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Sherbet step 3');
             return;
         }
 
@@ -176,8 +183,8 @@ function request_big_count_post(chId, after, countPost, query_hash) {
     }
 
     xhrJson.onerror = function(){
-        console.log('Ошибка соединения.\nВозникла при выполнении Serbet step 3');
-        alert('Ошибка соединения.\nВозникла при выполнении Serbet step 3');
+        console.log('Ошибка соединения.\nВозникла при выполнении Sherbet step 3');
+        alert('Ошибка соединения.\nВозникла при выполнении Sherbet step 3');
     }
 }
 
