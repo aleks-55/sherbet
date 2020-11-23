@@ -127,7 +127,8 @@ function startSherbet(urlUserPage) {
         document.title = doc.title.split(' • ')[0] + ' • ' + document.title;
 
         // готовим блок description
-        document.getElementById('_username').innerHTML = username;
+        document.getElementById('_username').innerHTML = 
+            '<a href="' + urlUserPage + '" target="_blank" >' + username + '</a>';
         document.getElementById('countPubAll').innerHTML = getCountPubAll(xhr.responseText);
         document.getElementById('mountRusPrilog').innerHTML = getMonthRusPrilog(mymonth);
         document.getElementById("_countPub").innerHTML = pubDB.countPub;
