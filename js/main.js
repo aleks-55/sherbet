@@ -206,7 +206,7 @@ function parsePub(pub){
     a.classList.add('link_to_instagram');
     let img = document.createElement('img');
     img.src = pub['thumbnail_src'];
-    img.title = timeConverter(pub["taken_at_timestamp"]);
+    img.title = timeConverter(pub["taken_at_timestamp"], 'rus');
     img.classList.add('img_preview');
     img.onclick = click_to_post;
     // pubDB.countPub - текущее кол-во постов в базе, 
@@ -246,12 +246,29 @@ function refresh_visible_years() {
     }
 }
 
-function timeConverter(UNIX_timestamp){
-    let a = new Date(UNIX_timestamp * 1000);
-    let year = a.getFullYear();
-    let month = getMonthRus(a.getMonth() + 1);
-    let date = a.getDate();
-    let fullDate = date + ' ' + month + ' ' + year;
+function timeConverter(UNIX_timestamp, type){
+    let a, year, month, date, fullDate;
+    switch (UNIX_timestamp) {
+        case '' :
+        case 'now' : {
+            a = new Date();
+            break;
+        }
+        default: {
+            a = new Date(UNIX_timestamp * 1000);
+        }
+    }
+
+    year = a.getFullYear();
+    if (type == 'rus') {
+        month = getMonthRus(a.getMonth() + 1);
+        date = a.getDate();
+        fullDate = date + ' ' + month + ' ' + year;
+    } else {
+        month = '0' + (a.getMonth() + 1);
+        date = '0' + a.getDate();
+        fullDate = year + '-' + month.substr(-2) + '-' + date.substr(-2);
+    }
     return fullDate;
 
     function getMonthRus(num) {

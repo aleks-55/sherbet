@@ -90,3 +90,38 @@
     background: #f5deb3b5;
     padding: 6px;
 }
+
+.download_btn {
+    position: absolute;
+    bottom: 25px;
+    opacity: 0.7;
+    cursor: pointer;
+    align-items: center;
+    padding: 5px;
+    background: white;
+    transition: all 0.3s ease-in-out 0s;
+    border-radius: 20px;   
+}
+.download_btn:hover {
+    opacity: 1;
+}
+.download_btn > div {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4wLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyMCAyMCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjAgMjA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNjM5NDg7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMCwwQzQuNSwwLDAsNC41LDAsMTBjMCw1LjUsNC41LDEwLDEwLDEwczEwLTQuNSwxMC0xMEMyMCw0LjUsMTUuNSwwLDEwLDB6IE0xMCwxOGMtNC40LDAtOC0zLjYtOC04DQoJCWMwLTQuNCwzLjYtOCw4LThzOCwzLjYsOCw4QzE4LDE0LjQsMTQuNCwxOCwxMCwxOHoiLz4NCgk8cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLDUgOCw1IDgsMTEgNiwxMSAxMCwxNi41IDE0LDExIDEyLDExIAkiLz4NCjwvZz4NCjwvc3ZnPg0K);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.observer .link_to_instagram {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 48px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.6;
+}

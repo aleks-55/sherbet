@@ -76,6 +76,9 @@ function view_observer(post_id, sidecar_id) {
         document.querySelector('.sidecar_title').classList.add('hidden');
     }
 
+    // Вставляем ссылку в кнопку
+    document.querySelector('.observer a.link_to_instagram').href = 'https://www.instagram.com/p/' + pub.shortcode + '/';
+
     // скрыть/показать кнопки
     if (pubDB[post_id - 1]) {
         document.querySelector('.previous').classList.remove('hidden_btn');
@@ -91,7 +94,7 @@ function view_observer(post_id, sidecar_id) {
     // -------------------
 
     // показываем дату публикации
-    document.querySelector('.observer_date').innerHTML = timeConverter(pub["taken_at_timestamp"]);
+    document.querySelector('.observer_date').innerHTML = timeConverter(pub["taken_at_timestamp"], 'rus');
 
     // -------------------
 
@@ -113,6 +116,8 @@ function init_observer() {
     document.querySelector('.close').onclick = close;
     
     document.querySelector('.observer').onclick = click_to_free_space;
+
+    document.querySelector('.download_btn').onclick = download_current_media;
 
     document.body.addEventListener('keydown', function (e) {
         if (document.querySelector('.observer').classList.value.match('hidden')) { return; }
@@ -201,6 +206,10 @@ function hide_video() {
     video.classList.add('hidden');
 
     video.src = '';
+}
+
+function download_current_media() {
+    download_media(current_post.post_id, current_post.sidecar_id);
 }
 
 init_observer()
