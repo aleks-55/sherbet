@@ -60,6 +60,7 @@ function download_media(post_id, sidecar_id) {
         tag_a.href = (is_video) ? 'data:video/mp4;base64,' : 'data:image/jpeg;base64,';
         tag_a.href += base64;
         tag_a.download = timeConverter('', '') + '-' + username + url.match('(_[0-9]{1,}_n).')[1];
+        tag_a.download += (is_video) ? '.mp4' : '.jpg'
 
         console.log(tag_a);
         tag_a.click();
