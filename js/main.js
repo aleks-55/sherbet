@@ -105,7 +105,7 @@ function startSherbet(urlUserPage) {
             // обработать ошибку
             console.log("Ошибка при запросе страницы пользователя.\nОтвет сервера: " + xhr.status);
             alert("Ошибка при запросе страницы пользователя.\nОтвет сервера: " + xhr.status);
-            document.getElementById("refresh_btn").classList.add('visible_on');
+            finishSherbet();
             return;
         }
     
@@ -140,6 +140,8 @@ function startSherbet(urlUserPage) {
     xhr.onerror = function(){
         console.log('Ошибка соединения.\nВозникла при выполнении Sherbet step 1\n(при загрузке страницы пользователя)');
         alert('Ошибка соединения.\nВозникла при выполнении Sherbet step 1\n(при загрузке страницы пользователя)');
+
+        finishSherbet();
     }
 }
 
@@ -158,6 +160,7 @@ function request_big_count_post(chId, after, countPost, query_hash) {
             // обработать ошибку
             console.log("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Sherbet step 3');
             alert("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Sherbet step 3');
+            finishSherbet();
             return;
         }
 
@@ -178,15 +181,21 @@ function request_big_count_post(chId, after, countPost, query_hash) {
 
             request_big_count_post(chId, after, countPost, query_hash);
         } else {
-            document.getElementById("waitingBox").classList.remove('visible_on');
-            document.getElementById("refresh_btn").classList.add('visible_on');
+            finishSherbet();
         }
     }
 
     xhrJson.onerror = function(){
         console.log('Ошибка соединения.\nВозникла при выполнении Sherbet step 3');
         alert('Ошибка соединения.\nВозникла при выполнении Sherbet step 3');
+
+        finishSherbet();
     }
+}
+
+function finishSherbet() {
+    document.getElementById("waitingBox").classList.remove('visible_on');
+    document.getElementById("refresh_btn").classList.add('visible_on');
 }
 
 function parsePub(pub){
