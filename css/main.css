@@ -94,14 +94,16 @@ button {
     background-repeat: no-repeat;
     position: fixed;
     z-index: 10; 
-    left: 3%; 
+    left: -13%; 
     bottom: 20px;
-    /* width: 100%;
-    background-position-x: center; */
-    display: none;
+    display: block;
+
+    transition-property: left;
+    transition-duration: 1s;
+    transition-timing-function: linear;
 }
 #waitingBox.visible_on {
-    display: block;
+    left: 3%;
 }
 
 .img_preview {
