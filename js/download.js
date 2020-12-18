@@ -5,8 +5,9 @@ function download_media(post_id, sidecar_id) {
 
     if ( ! pub ) return;
 
-    let url, is_video, taken_at_timestamp;
-    taken_at_timestamp = pub.taken_at_timestamp;
+    let url, is_video;
+    // let url, is_video,  taken_at_timestamp;
+    // taken_at_timestamp = pub.taken_at_timestamp;
 
     if (pub.__typename == 'GraphSidecar') {
         let s = pub.edge_sidecar_to_children.edges[sidecar_id];
@@ -17,16 +18,12 @@ function download_media(post_id, sidecar_id) {
         }
     } 
 
-    if (pub.is_video) {
-        url = pub.video_url;
-    } else {
-        url = pub.display_url;
-    }
-
     is_video = pub.is_video;
 
+    url = pub.video_url || pub.display_url;
+
     console.log('url = ' + url);
-    console.log("taken_at_timestamp = " + taken_at_timestamp)
+    // console.log("taken_at_timestamp = " + taken_at_timestamp)
     console.log("is_video = " + is_video)
 
     let xhr = new XMLHttpRequest();
@@ -59,7 +56,8 @@ function download_media(post_id, sidecar_id) {
         let tag_a = document.createElement('a');
         tag_a.href = (is_video) ? 'data:video/mp4;base64,' : 'data:image/jpeg;base64,';
         tag_a.href += base64;
-        tag_a.download = timeConverter('', '') + '-' + username + url.match('(_[0-9]{1,}_n).')[1];
+        // tag_a.download = timeConverter('', '') + '-' + username + url.match('(_[0-9]{1,}_n).')[1];
+        tag_a.download = username + url.match('(_[0-9]{1,}_n).')[1];
         tag_a.download += (is_video) ? '.mp4' : '.jpg'
 
         console.log(tag_a);
