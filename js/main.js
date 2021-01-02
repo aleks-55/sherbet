@@ -13,6 +13,9 @@ click_to_post = function() {};
 // база нужных публикаций
 let pubDB = { 'countPub': 0 };
 
+// данные О СКОЛЬКИХ публикациях получили (в request_big_count_post)
+let count_all_get_posts;
+
 function init() {
     document.getElementById("month_selector").value = (new Date).getMonth() + 1;
 
@@ -113,14 +116,21 @@ function startSherbet(urlUserPage) {
         let doc  = new DOMParser().parseFromString(xhr.responseText, 'text/html');
 
         // теперь извлечем id канала из страницы пользователя
-        let script = doc.querySelectorAll("script"); 
-        for (let i = 0; i < script.length; i++) {
-            if (script[i].innerHTML.match(/^window._sharedData = /)) {
-                let prefix = "window._sharedData = ";
-                let jsonUserPage = JSON.parse(script[i].innerHTML.substr(prefix.length, script[i].innerHTML.length - prefix.length - 1))
-                chId = jsonUserPage["entry_data"]["ProfilePage"][0]["graphql"]["user"]["id"];
-                break;
+        try {
+            let script = doc.querySelectorAll("script"); 
+            for (let i = 0; i < script.length; i++) {
+                if (script[i].innerHTML.match(/^window._sharedData = /)) {
+                    let prefix = "window._sharedData = ";
+                    let jsonUserPage = JSON.parse(script[i].innerHTML.substr(prefix.length, script[i].innerHTML.length - prefix.length - 1))
+                    chId = jsonUserPage["entry_data"]["ProfilePage"][0]["graphql"]["user"]["id"];
+                    break;
+                }
             }
+        } catch {
+            console.log('Ошибка: не смогли извлечь id канала из страниы пользователя.');
+            alert('Ошибка: не смогли извлечь id канала из страниы пользователя.');
+            finishSherbet();
+            return;
         }
 
         // поставим title на нашу страницу-скрипт
@@ -133,6 +143,8 @@ function startSherbet(urlUserPage) {
         document.getElementById('mountRusPrilog').innerHTML = getMonthRusPrilog(mymonth);
         document.getElementById("_countPub").innerHTML = pubDB.countPub;
         document.getElementById('description').classList.add('visible_on');
+
+        count_all_get_posts = 0;
 
         request_big_count_post(chId, after, countPost, query_hash);
     }
@@ -164,11 +176,23 @@ function request_big_count_post(chId, after, countPost, query_hash) {
             return;
         }
 
-        let jsonResponse = JSON.parse(xhrJson.response);
+        let jsonResponse;
+        try {
+            jsonResponse = JSON.parse(xhrJson.response);
+        } catch {
+            console.log("Ошибка: ответ сервера не в формате JSON.");
+            alert("Ошибка: ответ сервера не в формате JSON.");
+            finishSherbet();
+            return;
+        }
+
         let publications = jsonResponse["data"]["user"]["edge_owner_to_timeline_media"]["edges"];
         for(let i = 0; i < publications.length; i++) {
             parsePub(publications[i]["node"]);
         }
+
+        count_all_get_posts += publications.length;
+        console.log('Получили постов: ' + count_all_get_posts);
 
         // обновляем в описании число найденных публикаций
         document.getElementById("_countPub").innerHTML = pubDB.countPub;
