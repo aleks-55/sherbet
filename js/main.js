@@ -106,9 +106,7 @@ function startSherbet(urlUserPage) {
     xhr.onload = function() {
         if (xhr.status != 200) {
             // обработать ошибку
-            console.log("Ошибка при запросе страницы пользователя.\nОтвет сервера: " + xhr.status);
-            alert("Ошибка при запросе страницы пользователя.\nОтвет сервера: " + xhr.status);
-            finishSherbet();
+            finishSherbet("Ошибка при запросе страницы пользователя.\nОтвет сервера: " + xhr.status);
             return;
         }
     
@@ -123,9 +121,7 @@ function startSherbet(urlUserPage) {
             jsonUserPage = JSON.parse(json_str);
             chId = jsonUserPage.entry_data.ProfilePage[0].graphql.user.id;
         } catch {
-            console.log('Ошибка: не смогли извлечь id канала из страниы пользователя.');
-            alert('Ошибка: не смогли извлечь id канала из страниы пользователя.');
-            finishSherbet();
+            finishSherbet('Ошибка: не смогли извлечь id канала из страниы пользователя.');
             return;
         }
 
@@ -147,10 +143,7 @@ function startSherbet(urlUserPage) {
     }
 
     xhr.onerror = function(){
-        console.log('Ошибка соединения.\nВозникла при выполнении Sherbet step 1\n(при загрузке страницы пользователя)');
-        alert('Ошибка соединения.\nВозникла при выполнении Sherbet step 1\n(при загрузке страницы пользователя)');
-
-        finishSherbet();
+        finishSherbet('Ошибка соединения.\nВозникла при загрузке страницы пользователя');
     }
 }
 
@@ -167,9 +160,7 @@ function request_big_count_post(chId, after, countPost, query_hash) {
     xhrJson.onload = function() {
         if (xhrJson.status != 200) {
             // обработать ошибку
-            console.log("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Sherbet step 3');
-            alert("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при выполнении Sherbet step 3');
-            finishSherbet();
+            finishSherbet("Ошибка. Ответ сервера: " + xhrJson.status + '\nВозникла при очередном запросе постов.');
             return;
         }
 
@@ -177,9 +168,7 @@ function request_big_count_post(chId, after, countPost, query_hash) {
         try {
             jsonResponse = JSON.parse(xhrJson.response);
         } catch {
-            console.log("Ошибка: ответ сервера не в формате JSON.");
-            alert("Ошибка: ответ сервера не в формате JSON.");
-            finishSherbet();
+            finishSherbet("Ошибка: ответ сервера не в формате JSON.");
             return;
         }
 
@@ -207,14 +196,15 @@ function request_big_count_post(chId, after, countPost, query_hash) {
     }
 
     xhrJson.onerror = function(){
-        console.log('Ошибка соединения.\nВозникла при выполнении Sherbet step 3');
-        alert('Ошибка соединения.\nВозникла при выполнении Sherbet step 3');
-
-        finishSherbet();
+        finishSherbet('Ошибка соединения.\nВозникла при очередном запросе постов.');
     }
 }
 
-function finishSherbet() {
+function finishSherbet(log) {
+    if (log) {
+        console.log(log);
+        alert(log);
+    }
     document.getElementById("waitingBox").classList.remove('visible_on');
     document.getElementById("refresh_btn").classList.add('visible_on');
 }
