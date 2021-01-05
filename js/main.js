@@ -116,16 +116,12 @@ function startSherbet(urlUserPage) {
         let doc  = new DOMParser().parseFromString(xhr.responseText, 'text/html');
 
         // теперь извлечем id канала из страницы пользователя
+        let jsonUserPage;
         try {
-            let script = doc.querySelectorAll("script"); 
-            for (let i = 0; i < script.length; i++) {
-                if (script[i].innerHTML.match(/^window._sharedData = /)) {
-                    let prefix = "window._sharedData = ";
-                    let jsonUserPage = JSON.parse(script[i].innerHTML.substr(prefix.length, script[i].innerHTML.length - prefix.length - 1))
-                    chId = jsonUserPage["entry_data"]["ProfilePage"][0]["graphql"]["user"]["id"];
-                    break;
-                }
-            }
+            let json_str = getScript(doc, 'window._sharedData = ({.+});');
+            json_str = json_str ? json_str[1] : 0;
+            jsonUserPage = JSON.parse(json_str);
+            chId = jsonUserPage.entry_data.ProfilePage[0].graphql.user.id;
         } catch {
             console.log('Ошибка: не смогли извлечь id канала из страниы пользователя.');
             alert('Ошибка: не смогли извлечь id канала из страниы пользователя.');
@@ -139,7 +135,8 @@ function startSherbet(urlUserPage) {
         // готовим блок description
         document.getElementById('_username').innerHTML = 
             '<a href="' + urlUserPage + '" target="_blank" >' + username + '</a>';
-        document.getElementById('countPubAll').innerHTML = getCountPubAll(xhr.responseText);
+        document.getElementById('countPubAll').innerHTML = 
+            jsonUserPage.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.count;
         document.getElementById('mountRusPrilog').innerHTML = getMonthRusPrilog(mymonth);
         document.getElementById("_countPub").innerHTML = pubDB.countPub;
         document.getElementById('description').classList.add('visible_on');
@@ -322,13 +319,16 @@ function timeConverter(UNIX_timestamp, type){
     }
 }
 
-function getCountPubAll(doc_str) {
-    if ( t = doc_str.match(/edge_owner_to_timeline_media":{"count":([0-9]{1,}),"page_info/) )
-    {
-        return t[1];
-    }
+// Функция ищет в скриптах, переданного ей документа, шаблон.
+// Первый же найденный результат передается в виде массива (Array)
+function getScript(_document, pattern) {
+    var elem = _document.scripts;
+    if (!elem[0]) { return; }  // end execution if not found
 
-    return "неизвестное количество";
+    for (var i = 0, len = elem.length; i < len ; i++) {
+        var m = elem[i].textContent.match(pattern);
+        if(m) { return m; }
+    }
 }
 
 function getMonthRusPrilog(month) {
