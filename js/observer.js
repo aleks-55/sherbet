@@ -94,7 +94,7 @@ function view_observer(post_id, sidecar_id) {
     // -------------------
 
     // показываем дату публикации
-    document.querySelector('.observer_date').innerHTML = timeConverter(pub["taken_at_timestamp"], 'rus');
+    document.querySelector('.observer_date').innerHTML = timeConverter(pub.taken_at_timestamp);
 
     // -------------------
 
