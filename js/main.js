@@ -94,9 +94,10 @@ function startSherbet(urlUserPage) {
     // на каком посте закончился посл. из сделанных запроров request_big_count_post
     let after = '';
     // по сколько постов запрашивать? в request_big_count_post
-    let countPost = 100;
+    let countPost = 50;
     // берется из js-файла
-    //let query_hash = 'e769aa130647d2354c40ea6a439bfc08';
+    //let query_hash = 'e769aa130647d2354c40ea6a439bfc08'; // с начала 2020
+    let query_hash = '003056d32c2554def87228bc3fd9668a'; // с 07.02.2021
 
     // получим страницу пользователя (канала)
     let xhrUserPage = new XMLHttpRequest();
@@ -143,14 +144,14 @@ function startSherbet(urlUserPage) {
 
         count_all_get_posts = 0;
 
-        request_big_count_post(chId, after, countPost);
+        request_big_count_post(chId, after, countPost, query_hash);
     }
 }
 
 // делаем запросы постов
 function request_big_count_post(chId, after, countPost, query_hash) {
     if (!query_hash) {
-        query_hash = 'e769aa130647d2354c40ea6a439bfc08';
+        query_hash = '003056d32c2554def87228bc3fd9668a';
     }
 
     let jsonVariables = '{"id":"' + chId + '","first":' + countPost + ',"after":"' + after + '"}';
@@ -197,7 +198,8 @@ function request_big_count_post(chId, after, countPost, query_hash) {
         if (has_next_page) {
             after = jsonResponse.data.user.edge_owner_to_timeline_media.page_info.end_cursor;
 
-            request_big_count_post(chId, after, countPost);
+            // request_big_count_post(chId, after, countPost, query_hash);
+            setTimeout(request_big_count_post, 2000, chId, after, countPost, query_hash);
         } else {
             finishSherbet();
         }
