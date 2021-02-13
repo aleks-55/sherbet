@@ -117,11 +117,9 @@ function initYears() {
 
     let _mainBox = document.getElementById("mainBox");
     for (let i = start_year; i >= end_year; i--) {
-        let t = createYear(i);
-        if (t) {
-            _mainBox.append(t);
-            tmp_years[i] = {'visible': false, 'domOb': t}
-        }
+        let year = createYear(i);
+        _mainBox.append(year);
+        tmp_years[i] = {'visible': false, 'domOb': year}
     }
 
     function createYear(year) {
@@ -146,4 +144,29 @@ function getScript(_document, pattern) {
         var m = elem[i].textContent.match(pattern);
         if(m) { return m; }
     }
+}
+
+// функция возвращает из hash-а #key1=value1&key2=value2
+// объект Params {key1: "value1", key2: "value2"}
+function getParameters(location) {
+    if (typeof location === 'undefined') {
+        location = window.location;
+    }
+    var hashParams = new (function Params() {})();
+    if (location.hash.length === 0) {
+        return hashParams;
+    };
+    var hashArray = location.hash.substring(1).split('&');
+    for (var i in hashArray) {
+        var keyValPair = hashArray[i].split('=');
+        hashParams[keyValPair[0]] = keyValPair[1];
+    }
+    return hashParams;
+}
+
+function checkParams(Params) {
+    return !!(Params.user && Params.user.match(/^[a-z0-9_.]+$/) &&
+        Params.chId && Params.chId.match(/^[0-9]+$/) &&
+        Params.countPostAll && Params.countPostAll.match(/^[0-9]+$/) &&
+        Params.title)
 }
